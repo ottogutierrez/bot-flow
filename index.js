@@ -1,7 +1,7 @@
 // You can find your project ID in your Dialogflow agent settings
 //const projectId = 'AIzaSyAzwWcy-cl-wEC7mjS0eDqEb85UaUK-wDE'; //https://dialogflow.com/docs/agents#settings
 const sessionId = 'quickstart-session-id';
-const query = 'hello';
+const query = 'Update comment of USB2AC1M';
 const languageCode = 'en-US';
 
 // Grab the service account credentials path from an environment variable
@@ -51,6 +51,7 @@ dialogflowClient
   .detectIntent(request)
   .then(responses => {
     console.log('Detected intent');
+    //console.log(responses)
     const result = responses[0].queryResult;
     console.log(`  Query: ${result.queryText}`);
     console.log(`  Response: ${result.fulfillmentText}`);
@@ -62,4 +63,38 @@ dialogflowClient
   })
   .catch(err => {
     console.error('ERROR:', err);
+  }) .then(()=>{
+      // ------------------second try
+  // The text query request.
+  const request2 = {
+    session: sessionPath,
+    queryInput: {
+      text: {
+        text: "TDCD changed",
+        languageCode: languageCode,
+      },
+    },
+  };
+    console.log('hello')
+    // Send request and log result
+    dialogflowClient
+      .detectIntent(request2)
+      .then(responses => {
+        console.log('Detected intent');
+        //console.log(responses)
+        const result = responses[0].queryResult;
+        console.log(`  Query: ${result.queryText}`);
+        console.log(`  Response: ${result.fulfillmentText}`);
+        if (result.intent) {
+          console.log(`  Intent: ${result.intent.displayName}`);
+        } else {
+          console.log(`  No intent matched.`);
+        }
+      })
+      .catch(err => {
+        console.error('ERROR:', err);
+      });
   });
+
+  
+
